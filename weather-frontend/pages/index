@@ -1,0 +1,56 @@
+<template>
+  <div class="p-6">
+    <h1 class="text-2xl font-bold mb-4">Weather Lookup</h1>
+
+    <div class="flex space-x-2 mb-4">
+      <input
+        v-model="zip"
+        type="text"
+        placeholder="Enter ZIP Code"
+        class="border px-3 py-2"
+      />
+      <button
+        @click="getWeather"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Get Weather
+      </button>
+    </div>
+
+    <div v-if="loading">Loading...</div>
+
+    <div v-if="weather" class="bg-gray-100 p-4 rounded">
+      <h2 class="text-xl font-semibold mb-2">Weather Result</h2>
+      <pre>{{ weather }}</pre>
+    </div>
+
+    <div v-if="error" class="text-red-500 mt-4">
+      {{ error }}
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const zip = ref('')
+const weather = ref(null)
+const error = ref('')
+const loading = ref(false)
+
+const getWeather = async () => {
+  loading.value = true
+  weather.value = null
+  error.value = ''
+
+  try {
+    const res = await fetch(`http://localhost:8080/api/weather/${zip.value}`)
+    if (!res.ok) throw new Error(await res.text())
+    weather.value = await res.json()
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    loading.value = false
+  }
+}
+</script>
