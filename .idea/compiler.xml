@@ -9,8 +9,8 @@
         <outputRelativeToContentRoot value="true" />
       </profile>
       <profile name="Annotation profile for weather-api" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <sourceOutputDir name="weather-api/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="weather-api/target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
